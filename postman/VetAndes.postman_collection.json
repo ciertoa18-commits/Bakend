@@ -1,0 +1,3491 @@
+{
+  "info": {
+    "name": "VetAndes backend - examen B",
+    "description": "Ejecutar carpetas en orden sobre la semilla sin modificar precios. Los ejemplos guardados ilustran el contrato; no son evidencia de una ejecucion real. Deja una atencion anulada como historial.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "recepcionToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "veterinarioToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "propietarioId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "mascotaId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "prestacionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "atencionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "p1",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "p2",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "p3",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "p4",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "p9",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "mascotaNuevaId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1 Autenticacion y roles",
+      "item": [
+        {
+          "name": "Login admin",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('adminToken',pm.response.json().token);if(pm.response.code<300)pm.collectionVariables.set('token',pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"{{password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"<JWT generado por el servidor>\",\n  \"tipo\": \"Bearer\",\n  \"expiraEnSegundos\": 3600,\n  \"username\": \"admin\",\n  \"nombreCompleto\": \"Usuario VetAndes\",\n  \"roles\": [\n    \"ADMIN\"\n  ],\n  \"permisos\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login recepcion",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"recepcion\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('recepcionToken',pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"recepcion\",\n  \"password\": \"{{password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"<JWT generado por el servidor>\",\n  \"tipo\": \"Bearer\",\n  \"expiraEnSegundos\": 3600,\n  \"username\": \"recepcion\",\n  \"nombreCompleto\": \"Usuario VetAndes\",\n  \"roles\": [\n    \"RECEPCIONISTA\"\n  ],\n  \"permisos\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login veterinario",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"veterinario\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('veterinarioToken',pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"veterinario\",\n  \"password\": \"{{password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"<JWT generado por el servidor>\",\n  \"tipo\": \"Bearer\",\n  \"expiraEnSegundos\": 3600,\n  \"username\": \"veterinario\",\n  \"nombreCompleto\": \"Usuario VetAndes\",\n  \"roles\": [\n    \"VETERINARIO\"\n  ],\n  \"permisos\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Usuario actual",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/auth/me"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/auth/me"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Sin token 401",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [],
+            "url": "{{baseUrl}}/propietarios"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [],
+                "url": "{{baseUrl}}/propietarios"
+              },
+              "status": "401",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 401,\n  \"error\": \"Unauthorized\",\n  \"mensaje\": \"Credenciales invalidas\",\n  \"ruta\": \"/api/v1/propietarios\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cuenta inactiva 401",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"inactivo\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"inactivo\",\n  \"password\": \"{{password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "401",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 401,\n  \"error\": \"Unauthorized\",\n  \"mensaje\": \"Credenciales invalidas\",\n  \"ruta\": \"/api/v1/auth/login\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login invalido 400",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "noauth"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/auth/login\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recepcion no ve reporte 403",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+              },
+              "status": "403",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 403,\n  \"error\": \"Forbidden\",\n  \"mensaje\": \"No tiene permiso para esta operacion\",\n  \"ruta\": \"/api/v1/reportes/atenciones-por-especie\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Veterinario no registra 403",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "403",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 403,\n  \"error\": \"Forbidden\",\n  \"mensaje\": \"No tiene permiso para esta operacion\",\n  \"ruta\": \"/api/v1/atenciones\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 Datos semilla",
+      "item": [
+        {
+          "name": "Propietarios",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/propietarios"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const a=pm.response.json();pm.collectionVariables.set('propietarioId',a.find(p=>p.dni==='70000001').id);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/propietarios"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Mascotas",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('mascotaId',pm.response.json().find(m=>m.nombre==='Firulais').id);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Prestaciones",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const a=pm.response.json();[1,2,3,4,9].forEach(i=>pm.collectionVariables.set('p'+i,a.find(p=>p.codigo==='PRS-00'+i).id));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Filtrar prestaciones PERRO",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones?especie=PERRO"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.response.json().forEach(p=>pm.expect(['PERRO','TODAS']).to.include(p.especieAplicable));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones?especie=PERRO"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Mascotas por propietario",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas?propietarioId={{propietarioId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas?propietarioId={{propietarioId}}"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 CRUD prestaciones",
+      "item": [
+        {
+          "name": "Crear 201",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/prestaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('prestacionId',pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/prestaciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 10,\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Duplicado 409",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/prestaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/prestaciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/prestaciones\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Consultar",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Editar",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/prestaciones/{{prestacionId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta actualizada\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/prestaciones/{{prestacionId}}",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta actualizada\",\n  \"precio\": 45.5,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Baja logica",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/prestaciones/{{prestacionId}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activo\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PATCH",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/prestaciones/{{prestacionId}}/estado",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activo\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Eliminar sin uso 204",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+              },
+              "status": "204",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "No existe 404",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones/{{prestacionId}}"
+              },
+              "status": "404",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"mensaje\": \"Recurso no encontrado\",\n  \"ruta\": \"/api/v1/prestaciones/{{prestacionId}}\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Validacion 400",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/prestaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 0,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/prestaciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codigo\": \"PRS-990\",\n  \"nombre\": \"Consulta de prueba\",\n  \"precio\": 0,\n  \"especieAplicable\": \"TODAS\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/prestaciones\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Usada no se elimina 409",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/prestaciones/{{p1}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/prestaciones/{{p1}}"
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/prestaciones/{{p1}}\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 CRUD mascotas",
+      "item": [
+        {
+          "name": "Crear 201",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('mascotaNuevaId',pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/mascotas",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 10,\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Duplicado 409",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/mascotas",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/mascotas\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Editar",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Beagle\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Beagle\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Consultar",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Eliminar 204",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+              },
+              "status": "204",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "No existe 404",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas/{{mascotaNuevaId}}"
+              },
+              "status": "404",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"mensaje\": \"Recurso no encontrado\",\n  \"ruta\": \"/api/v1/mascotas/{{mascotaNuevaId}}\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Fecha futura 400",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2999-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/mascotas",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2999-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": \"{{propietarioId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/mascotas\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Propietario inexistente 404",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/mascotas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": 999999999\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/mascotas",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Mascota prueba Postman\",\n  \"especie\": \"PERRO\",\n  \"raza\": \"Mestizo\",\n  \"fechaNacimiento\": \"2024-01-01\",\n  \"sexo\": \"M\",\n  \"propietarioId\": 999999999\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "404",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"mensaje\": \"Recurso no encontrado\",\n  \"ruta\": \"/api/v1/mascotas\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Con atenciones no se elimina 409",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/mascotas/{{mascotaId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/mascotas/{{mascotaId}}"
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/mascotas/{{mascotaId}}\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5 Atenciones y reglas",
+      "item": [
+        {
+          "name": "Tercer detalle incompatible 409",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p2}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p4}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p2}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p4}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/atenciones\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Prestacion inactiva 409",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p9}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p9}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/atenciones\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Prestacion repetida 400",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/atenciones\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Sin detalles 400",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/atenciones\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Registrar con descuento 201",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p2}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p3}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"total\": 1,\n  \"descuento\": 999\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                  "if(pm.response.code<300)pm.collectionVariables.set('atencionId',pm.response.json().id);pm.test('Importes calculados por el servidor',()=>{const r=pm.response.json();pm.expect(r.subtotal).to.eql(160);pm.expect(r.descuento).to.eql(16);pm.expect(r.total).to.eql(144);});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p2}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p3}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"total\": 1,\n  \"descuento\": 999\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 10,\n  \"mascotaId\": \"{{mascotaId}}\",\n  \"peso\": 12.5,\n  \"diagnostico\": \"Control de prueba\",\n  \"detalles\": [\n    {\n      \"prestacionId\": \"{{p1}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p2}}\",\n      \"cantidad\": 1\n    },\n    {\n      \"prestacionId\": \"{{p3}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"total\": 144,\n  \"descuento\": 16,\n  \"numero\": \"AT-000005\",\n  \"estado\": \"REGISTRADA\",\n  \"subtotal\": 160\n}"
+            }
+          ]
+        },
+        {
+          "name": "Consultar detalle",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/atenciones/{{atencionId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/atenciones/{{atencionId}}"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Filtros combinados",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/atenciones?mascota=fIRu&especie=PERRO&estado=REGISTRADA"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/atenciones?mascota=fIRu&especie=PERRO&estado=REGISTRADA"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Lista vacia",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/atenciones?mascota=NO-EXISTE"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Sin resultados',()=>pm.expect(pm.response.json()).to.eql([]));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/atenciones?mascota=NO-EXISTE"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Rango invertido 400",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/atenciones?desde=2026-11-01&hasta=2026-10-01"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/atenciones?desde=2026-11-01&hasta=2026-10-01"
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/atenciones?desde=2026-11-01&hasta=2026-10-01\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recepcion no anula 403",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{recepcionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PATCH",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{recepcionToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "403",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 403,\n  \"error\": \"Forbidden\",\n  \"mensaje\": \"No tiene permiso para esta operacion\",\n  \"ruta\": \"/api/v1/atenciones/{{atencionId}}/anular\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reporte previo",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Motivo corto 400",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivo\": \"corto\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PATCH",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"corto\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "400",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"mensaje\": \"Datos invalidos\",\n  \"ruta\": \"/api/v1/atenciones/{{atencionId}}/anular\",\n  \"campos\": {\n    \"nombre\": \"Revise el valor del campo\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Anular",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PATCH",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Ya anulada 409",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Formato comun',()=>{const r=pm.response.json(); ['timestamp','status','error','mensaje','ruta'].forEach(k=>pm.expect(r).to.have.property(k));});"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "PATCH",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/atenciones/{{atencionId}}/anular",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"Propietario cancelo la visita\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "409",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-10-30T10:00:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"mensaje\": \"Regla de negocio rechazada\",\n  \"ruta\": \"/api/v1/atenciones/{{atencionId}}/anular\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reporte excluye anuladas",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{veterinarioToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [],
+            "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Ejemplo ilustrativo del contrato (no ejecutado)",
+              "originalRequest": {
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{veterinarioToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "header": [],
+                "url": "{{baseUrl}}/reportes/atenciones-por-especie"
+              },
+              "status": "200",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
